@@ -1,0 +1,23 @@
+<p-toast />
+<div class="flex justify-content-center align-items-center min-h-screen w-ful">
+    <p-card header="Formulario Articulo" class="w-10">
+        <form [formGroup]="formOrder" (ngSubmit)="edit ? updateOrder() : createOrder()" class="flex flex-column gap-2">
+            <div class="field flex flex-column gap-1">
+                <label for="name">Codigo: </label>
+                <input type="text" pInputText formControlName="code" />
+            </div>
+            <div class="field flex flex-column gap-1">
+                <label for="name">Fecha: </label>
+                <p-calendar formControlName="orderDate" />
+            </div>
+            <div class="field flex flex-column gap-1">
+                <label for="name">Cliente: </label>
+                <p-dropdown formControlName="client" [options]="clients" optionLabel="Cliente" placeholder="Seleccione un cliente" />
+            </div>
+            <div class="flex gap-2">
+                <p-button label="Guardar" [loading]="isSaveInProgress" type="submit" />
+                <p-button label="Atras" severity="secondary" class="gap-3" styleClass="gap-3" routerLink="/order-view" />
+            </div>
+        </form>
+    </p-card>
+</div>

@@ -1,0 +1,30 @@
+<p-toast />
+<div class="flex flex-row-reverse md:flex-row gap-2">
+    <p-button label="Crear Nuevo Articulo" severity="primary" class="gap-3" styleClass="gap-3" routerLink="/article-form/new" />
+    <p-button label="Menu Principal" severity="secondary" class="gap-3" styleClass="gap-3" routerLink="/" />
+</div>
+<h1>Listado de Articulos</h1>
+<br>
+<p-dataView #dv [value]="articles">
+    <ng-template pTemplate="list" let-clients>
+        <div class="grid grid-nogutter">
+            <div class="col-12" *ngFor="let article of articles; let first = first" class="col-12">
+                <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                        <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                            <div>
+                                <span class="font-medium text-secondary text-sm">Articulo Codigo: {{ article.code }}</span>
+                                <div class="text-lg font-medium text-900 mt-2">{{ article.name }}</div>
+                                <span class="text-xl font-semibold text-900">{{ '$' + article.unitPrice }}</span>
+                            </div>
+                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                <p-button label="Borrar" severity="secondary" class="w-full" styleClass="w-full" (onClick)="deleteArticle(article.code)" />
+                                <p-button label="Editar" severity="primary" class="w-full" styleClass="w-full" routerLink="/article-form/{{article.code}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>

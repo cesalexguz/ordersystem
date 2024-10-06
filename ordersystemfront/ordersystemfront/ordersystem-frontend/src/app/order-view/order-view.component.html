@@ -1,0 +1,45 @@
+<p-toast />
+<div class="flex flex-row-reverse md:flex-row gap-2">
+    <p-button label="Crear Nueva Orden" severity="primary" class="gap-3" styleClass="gap-3" routerLink="/order-form/new" />
+    <p-button label="Menu Principal" severity="secondary" class="gap-3" styleClass="gap-3" routerLink="/" />
+</div>
+<h1>Listado de Ordenes</h1>
+<br>
+<p-dataView #dv [value]="orders">
+    <ng-template pTemplate="list" let-clients>
+        <div class="grid grid-nogutter">
+            <div class="col-12" *ngFor="let order of orders; let first = first" class="col-12">
+                <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                        <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                            <div>
+                                <span class="text-lg font-medium text-900 mt-2">Orden N°: {{ order.code }}</span>
+                                <div class="font-medium text-secondary text-sm">Fecha: {{ order.orderDate }}</div>
+                                <div class="font-medium text-secondary text-sm">Cliente: {{ order.client.name + ' ' + order.client.lastname}}</div>
+                                <span class="text-xl font-semibold text-900">Total: {{ '$' + order.totalValueOrder }}</span>
+                                <div class="col-12" *ngFor="let articleCart of order.articlesCart; let first = first" class="col-12">
+                                    <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                        <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+                                            <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                                                <div>
+                                                    <span class="font-medium text-secondary text-sm">Articulo Codigo: {{ articleCart.article.code }}</span>
+                                                    <div class="text-lg font-medium text-900 mt-2">Cantidad: {{ articleCart.quantity }}</div>
+                                                    <div class="text-lg font-medium text-900 mt-2">Producto: {{ articleCart.article.name }}</div>
+                                                    <span class="text-xl font-semibold text-900">{{ '$' + articleCart.article.unitPrice }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                <p-button label="Borrar" severity="secondary" class="w-full" styleClass="w-full" (onClick)="deleteOrder(order.code)" />
+                                <p-button label="Editar" severity="primary" class="w-full" styleClass="w-full" routerLink="/order-form/{{order.code}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
